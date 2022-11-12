@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using GiftApp.Interfaces;
 using Prism.DryIoc;
 
 namespace GiftApp;
@@ -35,6 +36,8 @@ public static class MauiProgram
         var s = builder.Services;
 
         s.AddDataAnnotationValidation();
+        s.AddSingleton<ISqliteConnection, MySqliteConnection>();
+
         s.AddGlobalCommandExceptionHandler(new(
 #if DEBUG
             ErrorAlertType.FullError

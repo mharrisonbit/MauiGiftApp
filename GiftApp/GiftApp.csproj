@@ -45,15 +45,27 @@
 		<PackageReference Include="ReactiveUI.Fody" Version="18.3.1" />
 		<PackageReference Include="Shiny.Framework" Version="3.0.0-alpha-0035" />
 		<PackageReference Include="Shiny.Extensions.Configuration" Version="3.0.0-alpha-0396" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.2" />
+		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.2" />
+		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.2" />
+		<PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="Views\" />
 	  <None Remove="ViewModels\" />
+	  <None Remove="sqlite-net-pcl" />
+	  <None Remove="SQLitePCLRaw.core" />
+	  <None Remove="SQLitePCLRaw.bundle_green" />
+	  <None Remove="SQLitePCLRaw.provider.dynamic_cdecl" />
+	  <None Remove="SQLitePCLRaw.provider.sqlite3" />
+	  <None Remove="Interfaces\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />
 	  <Folder Include="ViewModels\" />
+	  <Folder Include="Interfaces\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Views\HomeView.xaml">
