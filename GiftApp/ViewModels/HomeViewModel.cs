@@ -1,14 +1,15 @@
 ﻿using System;
+using GiftApp.Models;
 
 namespace GiftApp.ViewModels
 {
-	public class HomeViewModel : ViewModel
-	{
+    public class HomeViewModel : ViewModel
+    {
         private readonly ISqliteConnection sqliteConnection;
 
         public ICommand Navigate { get; }
 
-		public HomeViewModel(BaseServices services, INavigationService navigator, ISqliteConnection sqliteConnection) : base(services)
+        public HomeViewModel(BaseServices services, INavigationService navigator, ISqliteConnection sqliteConnection) : base(services)
         {
             this.sqliteConnection = sqliteConnection;
 
@@ -17,12 +18,14 @@ namespace GiftApp.ViewModels
                 await navigator.Navigate("NavigationPage/" + uri);
             });
 
-            var people = this.sqliteConnection.GetAllPeople();
-            Console.WriteLine(people);
+            People = this.sqliteConnection.GetAllPeople();
         }
 
         [Reactive] public string Property { get; set; }
         [Reactive] public string Title { get; set; } = "Home Page From VM";
+
+        public ObservableCollection<Person> People { get; private set; } = new();
+
     }
 }
 

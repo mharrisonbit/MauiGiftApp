@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GiftApp.Views.HomeView"
              xmlns:local="clr-namespace:GiftApp.ViewModels"
+             xmlns:thisData="clr-namespace:GiftApp.Models"
              x:DataType="local:HomeViewModel"
              Title="HomeView">
     <Grid RowDefinitions="60, *, 60">
@@ -11,6 +12,17 @@
             Text="{Binding Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <CollectionView Grid.Row="1" ItemsSource="{Binding People}">
+            <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="thisData:Person">
+                        <StackLayout>
+                            <Label Text="{Binding FirstName}"/>
+                            <Label Text="{Binding MiddleName}"/>
+                            <Label Text="{Binding LastName}"/>
+                        </StackLayout>
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button
             Text="Add"
             Command="{Binding Navigate}"
