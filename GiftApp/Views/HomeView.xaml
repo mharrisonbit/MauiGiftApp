@@ -5,10 +5,16 @@
              xmlns:local="clr-namespace:GiftApp.ViewModels"
              x:DataType="local:HomeViewModel"
              Title="HomeView">
-    <VerticalStackLayout>
-        <Label 
+    <Grid RowDefinitions="60, *, 60">
+        <Label
+            Grid.Row="0"
             Text="{Binding Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        <Button
+            Text="Add"
+            Command="{Binding Navigate}"
+            CommandParameter="AddToListView"
+            Grid.Row="2"/>
+    </Grid>
 </ContentPage>

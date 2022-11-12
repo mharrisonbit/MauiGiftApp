@@ -48,5 +48,6 @@ public static class MauiProgram
     static void RegisterViews(IServiceCollection s)
     {
         s.RegisterForNavigation<HomeView, HomeViewModel>();
+        s.RegisterForNavigation<AddToListView, AddToListViewModel>();
     }
 }
