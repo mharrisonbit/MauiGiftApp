@@ -1,7 +1,11 @@
-﻿namespace GiftApp.Interfaces
+﻿using GiftApp.Models;
+
+namespace GiftApp.Interfaces
 {
     public interface ISqliteConnection
     {
-        public void DoSomething();
+        public bool AddPerson(Person person);
+        public bool AddGift(Gift gift);
+        public ObservableCollection<Person> GetAllPeople();
     }
 }

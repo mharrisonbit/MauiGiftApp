@@ -13,4 +13,5 @@ global using Prism.Navigation;
 global using Prism.Services;
 global using GiftApp.ViewModels;
 global using GiftApp.Views;
+global using GiftApp.Interfaces;
 
