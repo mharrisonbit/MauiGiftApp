@@ -1,5 +1,6 @@
 ﻿using System;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace GiftApp.Models
 {
@@ -11,6 +12,8 @@ namespace GiftApp.Models
         public string? GiftName { get; set; }
         public bool Purchased { get; set; }
         public bool IsDeleted { get; set; }
+
+        [ForeignKey(typeof(Person))]
         public int PersonId { get; set; }
     }
 }

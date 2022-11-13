@@ -38,6 +38,18 @@ namespace GiftApp
         public ObservableCollection<Person> GetAllPeople()
         {
             var people = conn.Table<Person>().ToList();
+            var gifts = conn.Table<Gift>();
+            foreach (var person in people)
+            {
+                foreach (var gift in gifts)
+                {
+                    if (gift.PersonId == person.ID)
+                    {
+                        person.GiftIds?.Add(gift);
+                    }
+                }
+            }
+
             return new ObservableCollection<Person>(people);
         }
 

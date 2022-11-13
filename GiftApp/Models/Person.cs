@@ -1,5 +1,6 @@
 ﻿using System;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace GiftApp.Models
 {
@@ -14,6 +15,9 @@ namespace GiftApp.Models
         public DateTime Birthday { get; set; }
         public string? BirthdateText { get; set; }
         public bool IsDeleted { get; set; }
+
+        [OneToMany]
+        public List<Gift>? GiftIds { get; set; }
     }
 }
 

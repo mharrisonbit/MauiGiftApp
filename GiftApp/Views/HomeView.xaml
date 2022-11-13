@@ -9,6 +9,7 @@
              prism:ViewModelLocator.AutowireViewModel="Automatic"
              Title="HomeView">
     <Grid RowDefinitions="60, *, 60, 60"
+          Margin="10"
           RowSpacing="10">
         <Label
             Grid.Row="0"
@@ -18,11 +19,27 @@
         <CollectionView Grid.Row="1" ItemsSource="{Binding People}">
             <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="thisData:Person">
-                        <StackLayout>
-                            <Label Text="{Binding FirstName}"/>
-                            <Label Text="{Binding MiddleName}"/>
-                            <Label Text="{Binding LastName}"/>
-                        </StackLayout>
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                            <Label Text="{Binding FirstName}"
+                                   Grid.Row="0"/>
+                            <Label Text="{Binding MiddleName}"
+                                   Grid.Row="1"/>
+                            <Label Text="{Binding LastName}"
+                                   Grid.Row="2"/>
+                            <Label Text="{Binding Age}"
+                                   Grid.Row="3"/>
+                            <CollectionView ItemsSource="{Binding GiftIds}"
+                                            Grid.Row="4"
+                                            EmptyView="No items to display">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text="Gifts will go here"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
                     </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
