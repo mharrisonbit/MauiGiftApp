@@ -41,6 +41,15 @@ namespace GiftApp
             return new ObservableCollection<Person>(people);
         }
 
+        public void DropAllTables()
+        {
+            this.conn.DropTable<Gift>();
+            this.conn.DropTable<Person>();
+
+            conn.CreateTable<Person>();
+            conn.CreateTable<Gift>();
+        }
+
         // public AsyncTableQuery<YourModel> Logs => this.Table<YourModel>();
     }
 }

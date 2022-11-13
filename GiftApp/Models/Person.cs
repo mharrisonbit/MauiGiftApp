@@ -11,7 +11,9 @@ namespace GiftApp.Models
 		public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? MiddleName { get; set; }
-        public DateTime? Birthday { get; set; }
+        public DateTime Birthday { get; set; }
+        public string? BirthdateText { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
 

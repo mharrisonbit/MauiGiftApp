@@ -10,6 +10,8 @@ namespace GiftApp.Models
         public decimal? Price { get; set; }
         public string? GiftName { get; set; }
         public bool Purchased { get; set; }
+        public bool IsDeleted { get; set; }
+        public int PersonId { get; set; }
     }
 }
 

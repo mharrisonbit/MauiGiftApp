@@ -4,7 +4,7 @@ using GiftApp.Models;
 
 namespace GiftApp.ViewModels
 {
-    public class AddToListViewModel : ViewModel
+    public class AddToListViewModel : BaseViewModel
     {
         public ICommand Navigate { get; }
         public ICommand AddPersonCmd { get; }
@@ -26,16 +26,25 @@ namespace GiftApp.ViewModels
             PersonToAdd = new Person();
         }
 
-        Person _personToAdd;
+        private Person _personToAdd;
         public Person PersonToAdd
         {
             get => _personToAdd;
-            private set => _personToAdd = value;
+            set => this.RaiseAndSetIfChanged(ref _personToAdd, value);
         }
 
         void AddPerson()
         {
+            IsBusy = true;
+            if (!string.IsNullOrWhiteSpace(PersonToAdd.BirthdateText))
+            {
+                var fixedBirthDate = DateTime.Parse(PersonToAdd.BirthdateText);
+                PersonToAdd.Birthday = fixedBirthDate;
+                PersonToAdd.Age = DateTime.Today.Year - PersonToAdd.Birthday.Year;
+            }
             var answer = this.sqlConnection.AddPerson(PersonToAdd);
+            PersonToAdd = new();
+            IsBusy = false;
         }
     }
 }

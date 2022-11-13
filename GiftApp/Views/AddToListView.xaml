@@ -22,12 +22,16 @@
                Text="{Binding PersonToAdd.LastName}"
                Placeholder="Smith"/>
         <Label Grid.Row="6"
-               Text="Age"/>
+               Text="Birth Date"/>
         <Entry Grid.Row="7"
-               Text="{Binding PersonToAdd.Age}"
-               Placeholder="16"/>
+               Text="{Binding PersonToAdd.BirthdateText}"
+               Placeholder="12/12/2001"/>
         <Button Text="Add"
                 Grid.Row="9"
                 Command="{Binding AddPersonCmd}"/>
+        <ActivityIndicator Grid.Row="0"
+                           Grid.RowSpan="10"
+                           IsRunning="True"
+                           IsVisible="{Binding IsBusy}"/>
     </Grid>
 </ContentPage>

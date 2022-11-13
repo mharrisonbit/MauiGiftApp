@@ -5,8 +5,11 @@
              xmlns:local="clr-namespace:GiftApp.ViewModels"
              xmlns:thisData="clr-namespace:GiftApp.Models"
              x:DataType="local:HomeViewModel"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="Automatic"
              Title="HomeView">
-    <Grid RowDefinitions="60, *, 60">
+    <Grid RowDefinitions="60, *, 60, 60"
+          RowSpacing="10">
         <Label
             Grid.Row="0"
             Text="{Binding Title}"
@@ -28,5 +31,9 @@
             Command="{Binding Navigate}"
             CommandParameter="AddToListView"
             Grid.Row="2"/>
+        <Button
+            Text="Delete all data"
+            Command="{Binding DeleteAllDataCommand}"
+            Grid.Row="3"/>
     </Grid>
 </ContentPage>
