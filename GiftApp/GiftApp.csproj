@@ -78,5 +78,8 @@
 	  <MauiXaml Update="Views\AddToListView.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\AddGiftView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
 	</ItemGroup>
 </Project>

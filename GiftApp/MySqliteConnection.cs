@@ -2,6 +2,7 @@
 using GiftApp.Interfaces;
 using GiftApp.Models;
 using SQLite;
+using System.Linq;
 
 namespace GiftApp
 {
@@ -16,41 +17,38 @@ namespace GiftApp
             conn.CreateTable<Gift>();
         }
 
-
-        public bool AddGift(Gift gift)
-        {
-            return true;
-        }
-
         public bool AddPerson(Person person)
         {
-            try
-            {
-                this.conn.Insert(person);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            return this.conn.Insert(person) == 0
+                ? false
+                : true;
         }
 
         public ObservableCollection<Person> GetAllPeople()
         {
-            var people = conn.Table<Person>().ToList();
+            var people = conn.Table<Person>();
             var gifts = conn.Table<Gift>();
-            foreach (var person in people)
+            foreach (var (person, gift) in from person in people
+                                           from gift in gifts
+                                           where gift.PersonId == person.ID
+                                           select (person, gift))
             {
-                foreach (var gift in gifts)
-                {
-                    if (gift.PersonId == person.ID)
-                    {
-                        person.GiftIds?.Add(gift);
-                    }
-                }
+                person.GiftIds?.Add(gift);
             }
 
             return new ObservableCollection<Person>(people);
+        }
+
+        public Person GetPersonById(int id)
+        {
+            return this.conn.Get<Person>(id);
+        }
+
+        public bool AddGiftForUser(Gift gift)
+        {
+            return this.conn.Insert(gift) == 0
+                ? false
+                : true;
         }
 
         public void DropAllTables()
@@ -61,7 +59,5 @@ namespace GiftApp
             conn.CreateTable<Person>();
             conn.CreateTable<Gift>();
         }
-
-        // public AsyncTableQuery<YourModel> Logs => this.Table<YourModel>();
     }
 }

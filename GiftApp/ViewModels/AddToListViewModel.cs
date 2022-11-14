@@ -26,16 +26,11 @@ namespace GiftApp.ViewModels
             PersonToAdd = new Person();
         }
 
-        private Person _personToAdd;
-        public Person PersonToAdd
-        {
-            get => _personToAdd;
-            set => this.RaiseAndSetIfChanged(ref _personToAdd, value);
-        }
+        [Reactive] public Person PersonToAdd { get; set; }
 
         void AddPerson()
         {
-            IsBusy = true;
+            SetBusyState(true);
             if (!string.IsNullOrWhiteSpace(PersonToAdd.BirthdateText))
             {
                 var fixedBirthDate = DateTime.Parse(PersonToAdd.BirthdateText);
@@ -44,7 +39,7 @@ namespace GiftApp.ViewModels
             }
             var answer = this.sqlConnection.AddPerson(PersonToAdd);
             PersonToAdd = new();
-            IsBusy = false;
+            SetBusyState(false);
         }
     }
 }

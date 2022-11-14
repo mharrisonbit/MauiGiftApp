@@ -10,6 +10,14 @@ namespace GiftApp.ViewModels
         {
         }
 
+        [Reactive] public bool IsEnabled { get; set; }
+        
+        protected void SetBusyState(bool isBusy)
+        {
+            IsBusy = isBusy;
+            IsEnabled = !isBusy;
+        }
+
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
     }
 }
