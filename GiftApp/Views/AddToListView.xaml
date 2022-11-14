@@ -3,12 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GiftApp.Views.AddToListView"
               xmlns:local="clr-namespace:GiftApp.ViewModels"
-             x:DataType="local:HomeViewModel"
+             x:DataType="local:AddToListViewModel"
              Title="AddToListView">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is the view to add a user and gift"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+        <Label Grid.Row="0"
+               Text="First Name"/>
+        <Entry Grid.Row="1"
+               Text="{Binding PersonToAdd.FirstName}"
+               Placeholder="Johnny"/>
+        <Label Grid.Row="2"
+               Text="Middle Name"/>
+        <Entry Grid.Row="3"
+               Text="{Binding PersonToAdd.MiddleName}"
+               Placeholder="D."/>
+        <Label Grid.Row="4"
+               Text="Last Name"/>
+        <Entry Grid.Row="5"
+               Text="{Binding PersonToAdd.LastName}"
+               Placeholder="Smith"/>
+        <Label Grid.Row="6"
+               Text="Birth Date"/>
+        <Entry Grid.Row="7"
+               Text="{Binding PersonToAdd.BirthdateText}"
+               Placeholder="12/12/2001"/>
+        <Button Text="Add"
+                Grid.Row="9"
+                Command="{Binding AddPersonCmd}"/>
+        <ActivityIndicator Grid.Row="0"
+                           Grid.RowSpan="10"
+                           IsRunning="True"
+                           IsVisible="{Binding IsBusy}"/>
+    </Grid>
 </ContentPage>

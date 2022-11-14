@@ -50,6 +50,7 @@
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.2" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.2" />
 		<PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.2" />
+		<PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -61,17 +62,23 @@
 	  <None Remove="SQLitePCLRaw.provider.dynamic_cdecl" />
 	  <None Remove="SQLitePCLRaw.provider.sqlite3" />
 	  <None Remove="Interfaces\" />
+	  <None Remove="Models\" />
+	  <None Remove="SQLiteNetExtensions" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Views\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Interfaces\" />
+	  <Folder Include="Models\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AddToListView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AddGiftView.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
 	</ItemGroup>

@@ -52,5 +52,6 @@ public static class MauiProgram
     {
         s.RegisterForNavigation<HomeView, HomeViewModel>();
         s.RegisterForNavigation<AddToListView, AddToListViewModel>();
+        s.RegisterForNavigation<AddGiftView, AddGiftViewModel>();
     }
 }

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GiftApp.Views.AddGiftView"
+             xmlns:local="clr-namespace:GiftApp.ViewModels"
+             x:DataType="local:AddGiftViewModel"
+             Title="AddGiftView">
+    <Grid RowDefinitions="60, 60, 60,60, 60, 60,60, 60, 60,60, 60, 60">
+        <Label Grid.Row="0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Add Gift for "/>
+                    <Span Text="{Binding PersonToBuyFor.FirstName}"/>
+                    <Span Text=" "/>
+                    <Span Text="{Binding PersonToBuyFor.LastName}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label Text="Gift Name"
+                Grid.Row="1"/>
+        <Entry Grid.Row="2"
+               Placeholder="Slinky"
+               Text="{Binding GiftToAdd.GiftName}"/>
+        <Label Text="Found the gift at"
+                Grid.Row="3"/>
+        <Entry Grid.Row="4"
+               Placeholder="Toys'r'us"
+               Text="{Binding GiftToAdd.FoundAt}"/>
+        <Label Text="Price"
+                Grid.Row="5"/>
+        <Entry Grid.Row="6"
+               Placeholder="$12.50"
+               Keyboard="Numeric"
+               Text="{Binding GiftToAdd.Price}"/>
+        <Button Text="Add Gift To User"
+                Grid.Row="7"
+                Command="{Binding AddGiftButton}"/>
+    </Grid>
+</ContentPage>

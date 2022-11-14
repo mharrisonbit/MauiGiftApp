@@ -1,12 +1,16 @@
 ﻿using System;
 using GiftApp.Interfaces;
+using GiftApp.Models;
 
 namespace GiftApp.ViewModels
 {
-    public class AddToListViewModel : ViewModel
+    public class AddToListViewModel : BaseViewModel
     {
         public ICommand Navigate { get; }
+        public ICommand AddPersonCmd { get; }
+
         readonly ISqliteConnection sqlConnection;
+        
 
         public AddToListViewModel(BaseServices services, INavigationService navigator, ISqliteConnection sqliteConnection) : base(services)
         {
@@ -17,7 +21,25 @@ namespace GiftApp.ViewModels
                 await navigator.Navigate("NavigationPage/" + uri);
             });
 
-            this.sqlConnection.DoSomething();
+            this.AddPersonCmd = new Command(() => this.AddPerson());
+
+            PersonToAdd = new Person();
+        }
+
+        [Reactive] public Person PersonToAdd { get; set; }
+
+        void AddPerson()
+        {
+            SetBusyState(true);
+            if (!string.IsNullOrWhiteSpace(PersonToAdd.BirthdateText))
+            {
+                var fixedBirthDate = DateTime.Parse(PersonToAdd.BirthdateText);
+                PersonToAdd.Birthday = fixedBirthDate;
+                PersonToAdd.Age = DateTime.Today.Year - PersonToAdd.Birthday.Year;
+            }
+            var answer = this.sqlConnection.AddPerson(PersonToAdd);
+            PersonToAdd = new();
+            SetBusyState(false);
         }
     }
 }

@@ -3,18 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GiftApp.Views.HomeView"
              xmlns:local="clr-namespace:GiftApp.ViewModels"
+             xmlns:thisData="clr-namespace:GiftApp.Models"
              x:DataType="local:HomeViewModel"
+             x:Name="HomePage"
              Title="HomeView">
-    <Grid RowDefinitions="60, *, 60">
+    <Grid RowDefinitions="60, *, 60, 60"
+          RowSpacing="10"
+          Margin="10">
         <Label
             Grid.Row="0"
             Text="{Binding Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <CollectionView Grid.Row="1" ItemsSource="{Binding People}">
+            <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="thisData:Person">
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, 50"
+                              ColumnDefinitions="80*, 20*">
+                            <Label Text="{Binding FirstName}"
+                                   Grid.Row="0"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding MiddleName}"
+                                   Grid.Row="1"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding LastName}"
+                                   Grid.Row="2"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Age}"
+                                   Grid.Row="3"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"/>
+                            <Button Text="Add Gift"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="4"
+                                    Grid.Column="1"
+                                    Command="{Binding Source={x:Reference HomePage}, Path=BindingContext.AddGiftButton}"
+                                    CommandParameter="{Binding ID}"/>
+                            <CollectionView ItemsSource="{Binding GiftIds}"
+                                            Grid.Row="4"
+                                            EmptyView="No items to display">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text="Gifts will go here"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button
             Text="Add"
             Command="{Binding Navigate}"
             CommandParameter="AddToListView"
             Grid.Row="2"/>
+        <Button
+            Text="Delete all data"
+            Command="{Binding DeleteAllDataCommand}"
+            Grid.Row="3"/>
     </Grid>
 </ContentPage>
