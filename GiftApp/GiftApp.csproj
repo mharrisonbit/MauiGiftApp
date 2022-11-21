@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>GiftApp</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -29,6 +30,19 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
+	  <AndroidLinkMode>None</AndroidLinkMode>
+	  <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidMessageHandler</AndroidHttpClientHandlerType>
+	  <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+	  <AndroidUseAapt2>true</AndroidUseAapt2>
+	  <AndroidManifest>AndroidManifest.xml</AndroidManifest>
+	  <AndroidDexTool>d8</AndroidDexTool>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios16.0|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -53,18 +67,18 @@
 		<PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Remove="Views\" />
-	  <None Remove="ViewModels\" />
-	  <None Remove="sqlite-net-pcl" />
-	  <None Remove="SQLitePCLRaw.core" />
-	  <None Remove="SQLitePCLRaw.bundle_green" />
-	  <None Remove="SQLitePCLRaw.provider.dynamic_cdecl" />
-	  <None Remove="SQLitePCLRaw.provider.sqlite3" />
-	  <None Remove="Interfaces\" />
-	  <None Remove="Models\" />
-	  <None Remove="SQLiteNetExtensions" />
-	</ItemGroup>
+<!--	<ItemGroup>-->
+<!--	  <None Remove="Views\" />-->
+<!--	  <None Remove="ViewModels\" />-->
+<!--	  <None Remove="sqlite-net-pcl" />-->
+<!--	  <None Remove="SQLitePCLRaw.core" />-->
+<!--	  <None Remove="SQLitePCLRaw.bundle_green" />-->
+<!--	  <None Remove="SQLitePCLRaw.provider.dynamic_cdecl" />-->
+<!--	  <None Remove="SQLitePCLRaw.provider.sqlite3" />-->
+<!--	  <None Remove="Interfaces\" />-->
+<!--	  <None Remove="Models\" />-->
+<!--	  <None Remove="SQLiteNetExtensions" />-->
+<!--	</ItemGroup>-->
 	<ItemGroup>
 	  <Folder Include="Views\" />
 	  <Folder Include="ViewModels\" />

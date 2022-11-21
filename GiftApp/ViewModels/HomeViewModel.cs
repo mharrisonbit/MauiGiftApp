@@ -11,6 +11,7 @@ namespace GiftApp.ViewModels
         public ICommand Navigate { get; }
         public ICommand DeleteAllDataCommand { get; }
         public ICommand AddGiftButton { get; }
+        public ICommand DeleteGiftButton { get; }
 
         public HomeViewModel(BaseServices services, INavigationService navigator, ISqliteConnection sqliteConnection) : base(services)
         {
@@ -18,6 +19,7 @@ namespace GiftApp.ViewModels
             this.sqliteConnection = sqliteConnection;
             this.DeleteAllDataCommand = new Command(() => this.DeleteAllData());
             this.AddGiftButton = new Command<int>((x) => this.AddGiftCommand(x));
+            this.DeleteGiftButton = new Command<Gift>((x) => this.DeleteGiftCommand(x));
 
             this.Navigate = ReactiveCommand.CreateFromTask<string>(async uri =>
             {
@@ -33,7 +35,7 @@ namespace GiftApp.ViewModels
 
         private void DeleteAllData()
         {
-            this.sqliteConnection.DropAllTables();
+            People = this.sqliteConnection.DropAllTables();
         }
 
         private void GetListOfPeopleToDisplay()
@@ -53,6 +55,10 @@ namespace GiftApp.ViewModels
             this.navigator.Navigate("NavigationPage/AddGiftView", navParameters);
         }
 
+        private void DeleteGiftCommand(Gift gift)
+        {
+            var test = this.sqliteConnection.DeleteGiftFromUser(gift);
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
