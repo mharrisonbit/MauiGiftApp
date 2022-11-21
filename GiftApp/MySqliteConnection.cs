@@ -26,14 +26,21 @@ namespace GiftApp
 
         public ObservableCollection<Person> GetAllPeople()
         {
-            var people = conn.Table<Person>();
-            var gifts = conn.Table<Gift>();
-            foreach (var (person, gift) in from person in people
-                                           from gift in gifts
-                                           where gift.PersonId == person.ID
-                                           select (person, gift))
+            var tempPeople = conn.Table<Person>().Where(p => p.IsDeleted != true);
+            var tempGifts = conn.Table<Gift>().Where(g => g.IsDeleted != true);
+
+            var people = tempPeople.ToList();
+            var gifts = tempGifts.ToList();
+
+            foreach (var person in people)
             {
-                person.GiftIds?.Add(gift);
+                foreach (var gift in gifts)
+                {
+                    if (gift.PersonId == person.ID)
+                    {
+                        person.ListOfGifts?.Add(gift);
+                    }
+                }
             }
 
             return new ObservableCollection<Person>(people);
@@ -51,13 +58,24 @@ namespace GiftApp
                 : true;
         }
 
-        public void DropAllTables()
+        public bool DeleteGiftFromUser(Gift gift)
+        {
+            gift.IsDeleted = true;
+            var answer =  this.conn.Update(gift) == 0
+                ? false
+                : true;
+            return answer;
+        }
+
+        public ObservableCollection<Person> DropAllTables()
         {
             this.conn.DropTable<Gift>();
             this.conn.DropTable<Person>();
 
             conn.CreateTable<Person>();
             conn.CreateTable<Gift>();
+
+            return GetAllPeople();
         }
     }
 }

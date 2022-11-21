@@ -22,7 +22,7 @@ namespace GiftApp.ViewModels
         private void AddGiftCommand()
         {
             SetBusyState(true);
-            this.conn.AddGiftForUser(GiftToAdd);
+            _= this.conn.AddGiftForUser(GiftToAdd);
             SetBusyState(false);
         }
         private void GetPersonToBuyFor(int recieverId)

@@ -10,11 +10,12 @@ namespace GiftApp.ViewModels
         public ICommand AddPersonCmd { get; }
 
         readonly ISqliteConnection sqlConnection;
-        
+        private readonly INavigationService navigation;
 
         public AddToListViewModel(BaseServices services, INavigationService navigator, ISqliteConnection sqliteConnection) : base(services)
         {
             sqlConnection = sqliteConnection;
+            this.navigation = navigator;
 
             this.Navigate = ReactiveCommand.CreateFromTask<string>(async uri =>
             {
@@ -40,6 +41,7 @@ namespace GiftApp.ViewModels
             var answer = this.sqlConnection.AddPerson(PersonToAdd);
             PersonToAdd = new();
             SetBusyState(false);
+            var test = this.navigation.GoBack();
         }
     }
 }

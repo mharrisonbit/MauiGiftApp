@@ -17,7 +17,7 @@ namespace GiftApp.Models
         public bool IsDeleted { get; set; }
 
         [OneToMany]
-        public List<Gift>? GiftIds { get; set; } = new();
+        public ObservableCollection<Gift>? ListOfGifts { get; set; } = new();
     }
 }
 
