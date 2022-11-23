@@ -1,10 +1,9 @@
-﻿using System;
-using SQLite;
+﻿using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace GiftApp.Models
 {
-	public class Person
+    public class Person
 	{
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }

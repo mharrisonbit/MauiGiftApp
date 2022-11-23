@@ -1,14 +1,11 @@
-﻿using System;
-using GiftApp.Interfaces;
-using GiftApp.Models;
+﻿using GiftApp.Models;
 using SQLite;
-using System.Linq;
 
 namespace GiftApp
 {
     public class MySqliteConnection : SQLiteAsyncConnection, ISqliteConnection
     {
-        public SQLiteConnectionWithLock conn { get; private set; }
+        private readonly SQLiteConnection conn;
 
         public MySqliteConnection(IPlatform platform) : base(Path.Combine(platform.AppData.FullName, "app.db"))
         {
@@ -61,10 +58,9 @@ namespace GiftApp
         public bool DeleteGiftFromUser(Gift gift)
         {
             gift.IsDeleted = true;
-            var answer =  this.conn.Update(gift) == 0
+            return  this.conn.InsertOrReplace(gift) == 0
                 ? false
                 : true;
-            return answer;
         }
 
         public ObservableCollection<Person> DropAllTables()

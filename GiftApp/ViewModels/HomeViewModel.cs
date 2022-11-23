@@ -23,7 +23,7 @@ namespace GiftApp.ViewModels
 
             this.Navigate = ReactiveCommand.CreateFromTask<string>(async uri =>
             {
-                await navigator.Navigate("NavigationPage/" + uri);
+                await navigator.Navigate(uri);
             });
 
             //People = this.sqliteConnection.GetAllPeople();
@@ -52,12 +52,14 @@ namespace GiftApp.ViewModels
                 { "RecieverId", id }
             };
             
-            this.navigator.Navigate("NavigationPage/AddGiftView", navParameters);
+            this.navigator.Navigate("AddGiftView", navParameters);
         }
 
         private void DeleteGiftCommand(Gift gift)
         {
             var test = this.sqliteConnection.DeleteGiftFromUser(gift);
+            if (test)
+                GetListOfPeopleToDisplay();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

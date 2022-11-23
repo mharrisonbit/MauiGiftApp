@@ -24,6 +24,7 @@ namespace GiftApp.ViewModels
             SetBusyState(true);
             _= this.conn.AddGiftForUser(GiftToAdd);
             SetBusyState(false);
+            this.Navigation.GoBack();
         }
         private void GetPersonToBuyFor(int recieverId)
         {

@@ -8,6 +8,7 @@ namespace GiftApp.ViewModels
     {
         public ICommand Navigate { get; }
         public ICommand AddPersonCmd { get; }
+        public ICommand Done { get; }
 
         readonly ISqliteConnection sqlConnection;
         private readonly INavigationService navigation;
@@ -16,6 +17,7 @@ namespace GiftApp.ViewModels
         {
             sqlConnection = sqliteConnection;
             this.navigation = navigator;
+            this.Done = ReactiveCommand.CreateFromTask(async () => await this.Navigation.GoBack());
 
             this.Navigate = ReactiveCommand.CreateFromTask<string>(async uri =>
             {
@@ -41,7 +43,8 @@ namespace GiftApp.ViewModels
             var answer = this.sqlConnection.AddPerson(PersonToAdd);
             PersonToAdd = new();
             SetBusyState(false);
-            var test = this.navigation.GoBack();
+            //this.Done.Execute(null);
+            this.Navigation.GoBack();
         }
     }
 }

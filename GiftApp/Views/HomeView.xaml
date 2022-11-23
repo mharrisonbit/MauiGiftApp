@@ -14,10 +14,12 @@
             Text="{Binding Title}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <CollectionView Grid.Row="1" ItemsSource="{Binding People}">
+        <CollectionView ItemsSource="{Binding People}"
+                        Margin="0,10,0,15"
+                        Grid.Row="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="thisData:Person">
-                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, 120, Auto">
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
                         <Label Text="{Binding FirstName}"
                                 Grid.Row="0"
                                 Grid.Column="0"/>
@@ -27,24 +29,29 @@
                                 Grid.Row="2"/>
                         <Label Text="{Binding Age}"
                                 Grid.Row="3"/>
-                        <CollectionView ItemsSource="{Binding ListOfGifts}"
-                                        Margin="20,0,0,0"
-                                        Grid.Row="4"
-                                        EmptyView="No items to display">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="thisData:Gift">
-                                    <StackLayout Orientation="Vertical">
-                                        <Label Text="{Binding GiftName}"/>
-                                        <Label Text="{Binding Price}"/>
-                                        <Button Text="Add Gift"
-                                                Command="{Binding Source={x:Reference HomePage}, Path=BindingContext.DeleteGiftButton}"
-                                                CommandParameter="{Binding .}"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                        <Frame BorderColor="Purple"
+                               BackgroundColor="Gray"
+                               Grid.Row="4">
+                            <StackLayout BindableLayout.ItemsSource="{Binding ListOfGifts}"
+                                         BindableLayout.EmptyView="No Gifts"
+                                         Margin="20,0"
+                                         Grid.Row="4">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="thisData:Gift">
+                                        <StackLayout>
+                                            <Label Text="{Binding GiftName}"/>
+                                            <Label Text="{Binding Price}"/>
+                                            <Button Text="Delete Gift"
+                                                    Command="{Binding Source={x:Reference HomePage}, Path=BindingContext.DeleteGiftButton}"
+                                                    CommandParameter="{Binding .}"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </Frame>
                         <Button Text="Add Gift"
                                 Grid.Row="5"
+                                Margin="0,10,0,50"
                                 Command="{Binding Source={x:Reference HomePage}, Path=BindingContext.AddGiftButton}"
                                 CommandParameter="{Binding ID}"/>
                     </Grid>
@@ -52,7 +59,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Button
-            Text="Add"
+            Text="Add Person"
             Command="{Binding Navigate}"
             CommandParameter="AddToListView"
             Margin="0,10"

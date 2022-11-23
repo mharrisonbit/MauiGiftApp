@@ -1,5 +1,4 @@
-﻿using System;
-using SQLite;
+﻿using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace GiftApp.Models
@@ -7,7 +6,7 @@ namespace GiftApp.Models
     public class Gift
 	{
         [PrimaryKey, AutoIncrement]
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public decimal? Price { get; set; }
         public string? FoundAt { get; set; }
         public string? GiftName { get; set; }
