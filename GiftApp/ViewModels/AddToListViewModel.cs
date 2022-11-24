@@ -27,6 +27,7 @@ namespace GiftApp.ViewModels
             this.AddPersonCmd = new Command(() => this.AddPerson());
 
             PersonToAdd = new Person();
+            PersonToAdd.Birthday = DateTime.Today;
         }
 
         [Reactive] public Person PersonToAdd { get; set; }

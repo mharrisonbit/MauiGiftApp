@@ -14,6 +14,8 @@ namespace GiftApp.Models
         public DateTime Birthday { get; set; }
         public string? BirthdateText { get; set; }
         public bool IsDeleted { get; set; }
+        public decimal? AmountToSpend { get; set; } = new();
+        public decimal? AmountSpent { get; set; } = new();
 
         [OneToMany]
         public ObservableCollection<Gift>? ListOfGifts { get; set; } = new();
