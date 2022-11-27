@@ -70,18 +70,6 @@
 		<PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
 	</ItemGroup>
 
-<!--	<ItemGroup>-->
-<!--	  <None Remove="Views\" />-->
-<!--	  <None Remove="ViewModels\" />-->
-<!--	  <None Remove="sqlite-net-pcl" />-->
-<!--	  <None Remove="SQLitePCLRaw.core" />-->
-<!--	  <None Remove="SQLitePCLRaw.bundle_green" />-->
-<!--	  <None Remove="SQLitePCLRaw.provider.dynamic_cdecl" />-->
-<!--	  <None Remove="SQLitePCLRaw.provider.sqlite3" />-->
-<!--	  <None Remove="Interfaces\" />-->
-<!--	  <None Remove="Models\" />-->
-<!--	  <None Remove="SQLiteNetExtensions" />-->
-<!--	</ItemGroup>-->
 	<ItemGroup>
 	  <Folder Include="Views\" />
 	  <Folder Include="ViewModels\" />
@@ -96,6 +84,9 @@
 	    <SubType></SubType>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AddGiftView.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CompletedListView.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
 	</ItemGroup>

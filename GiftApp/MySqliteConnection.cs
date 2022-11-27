@@ -22,13 +22,12 @@ public class MySqliteConnection : SQLiteAsyncConnection, ISqliteConnection
             : true;
     }
 
-    public ObservableCollection<Person> GetAllPeople()
+    public ObservableCollection<Person> GetAllPeople(bool isComplete, bool isDeleted = false)
     {
-        var tempPeople = conn.Table<Person>().Where(p => p.IsDeleted != true);
-        var tempGifts = conn.Table<Gift>().Where(g => g.IsDeleted != true);
+        var testPeople = conn.Table<Person>().Where(p => p.IsDeleted == isDeleted).ToList();
+        var people = testPeople.Where(p => p.IsComplete == isComplete).ToList();
+        var gifts = conn.Table<Gift>().Where(g => g.IsDeleted == false).ToList();
 
-        var people = tempPeople.ToList();
-        var gifts = tempGifts.ToList();
         foreach (var person in people)
         {
             foreach (var gift in gifts)
@@ -60,9 +59,30 @@ public class MySqliteConnection : SQLiteAsyncConnection, ISqliteConnection
 
     public bool UpdateGift(Gift gift)
     {
-        return this.conn.Update(gift) == 0
+        var updated = this.conn.Update(gift) == 0
             ? false
             : true;
+        if (updated)
+        {
+            var completed = this.conn.Table<Gift>().Where(g => g.PersonId == gift.PersonId && g.Purchased != true).Count() >= 1
+                ? false
+                : true;
+            
+            var personToUpdate = GetPersonById(gift.PersonId);
+            personToUpdate.IsComplete = completed;
+            updated = UpdatePerson(personToUpdate);
+            
+        }
+        return updated;
+    }
+
+    public bool UpdatePerson(Person person)
+    {
+        var updated = this.conn.Update(person) >= 1
+            ? true
+            : false;
+
+        return updated;
     }
 
     public bool DeleteGiftFromUser(Gift gift)
@@ -81,7 +101,7 @@ public class MySqliteConnection : SQLiteAsyncConnection, ISqliteConnection
         conn.CreateTable<Person>();
         conn.CreateTable<Gift>();
 
-        return GetAllPeople();
+        return GetAllPeople(true);
     }
 
     private void FigureAmountSpent(int id)

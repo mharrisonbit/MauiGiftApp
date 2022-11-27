@@ -16,6 +16,7 @@ namespace GiftApp.Models
         public bool IsDeleted { get; set; }
         public decimal? AmountToSpend { get; set; } = new();
         public decimal? AmountSpent { get; set; } = new();
+        public bool IsComplete { get; set; }
 
         [OneToMany]
         public ObservableCollection<Gift>? ListOfGifts { get; set; } = new();
