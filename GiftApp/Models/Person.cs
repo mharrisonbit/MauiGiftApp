@@ -3,8 +3,8 @@ using SQLiteNetExtensions.Attributes;
 
 namespace GiftApp.Models
 {
-    public class Person
-	{
+    public class Person : ReactiveObject
+    {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public int? Age { get; set; }

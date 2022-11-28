@@ -42,7 +42,7 @@ namespace GiftApp.ViewModels
 
         private void GetListOfPeopleToDisplay()
         {
-            People = this.sqliteConnection.GetAllPeople(false);
+            People = this.sqliteConnection.GetAllPeople();
         }
 
         private void AddGiftCommand(int id)
@@ -66,7 +66,7 @@ namespace GiftApp.ViewModels
         private void MarkGiftCommand(Gift x)
         {
             this.sqliteConnection.UpdateGift(x);
-            People = this.sqliteConnection.GetAllPeople(false);
+            People = this.sqliteConnection.GetAllPeople();
         }
 
         private void UpdateAmountToSpendShown()

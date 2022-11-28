@@ -22,22 +22,37 @@ public class MySqliteConnection : SQLiteAsyncConnection, ISqliteConnection
             : true;
     }
 
-    public ObservableCollection<Person> GetAllPeople(bool isComplete, bool isDeleted = false)
+    public ObservableCollection<Person> GetAllPeople()
     {
-        var testPeople = conn.Table<Person>().Where(p => p.IsDeleted == isDeleted).ToList();
-        var people = testPeople.Where(p => p.IsComplete == isComplete).ToList();
+        var testPeople = conn.Table<Person>().Where(p => p.IsDeleted == false).ToList();
+        var people = testPeople.Where(p => p.IsComplete == false).ToList();
         var gifts = conn.Table<Gift>().Where(g => g.IsDeleted == false).ToList();
 
-        foreach (var person in people)
+        foreach (var (person, gift) in from person in people
+                                       from gift in gifts
+                                       where gift.PersonId == person.ID
+                                       select (person, gift))
         {
-            foreach (var gift in gifts)
-            {
-                if (gift.PersonId == person.ID)
-                {
-                    person.ListOfGifts?.Add(gift);
-                    FigureAmountSpent(person.ID);
-                }
-            }
+            person.ListOfGifts?.Add(gift);
+            FigureAmountSpent(person.ID);
+        }
+
+        return new ObservableCollection<Person>(people);
+    }
+
+    public ObservableCollection<Person> GetAllCompletedPeople()
+    {
+        var testPeople = conn.Table<Person>().Where(p => p.IsDeleted == false).ToList();
+        var people = testPeople.Where(p => p.IsComplete == true).ToList();
+        var gifts = conn.Table<Gift>().Where(g => g.IsDeleted == false).ToList();
+
+        foreach (var (person, gift) in from person in people
+                                       from gift in gifts
+                                       where gift.PersonId == person.ID
+                                       select (person, gift))
+        {
+            person.ListOfGifts?.Add(gift);
+            FigureAmountSpent(person.ID);
         }
 
         return new ObservableCollection<Person>(people);
@@ -101,7 +116,7 @@ public class MySqliteConnection : SQLiteAsyncConnection, ISqliteConnection
         conn.CreateTable<Person>();
         conn.CreateTable<Gift>();
 
-        return GetAllPeople(true);
+        return GetAllPeople();
     }
 
     private void FigureAmountSpent(int id)

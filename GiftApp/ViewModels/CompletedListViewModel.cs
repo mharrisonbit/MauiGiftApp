@@ -23,11 +23,11 @@ public class CompletedListViewModel : BaseViewModel
     private void MarkGiftCommand(Gift x)
     {
         this.sqliteConnection.UpdateGift(x);
-        People = this.sqliteConnection.GetAllPeople(true);
+        People = this.sqliteConnection.GetAllCompletedPeople();
     }
 
     public override void OnNavigatedTo(INavigationParameters parameters)
     {
-        People = this.sqliteConnection.GetAllPeople(true);
+        People = this.sqliteConnection.GetAllCompletedPeople();
     }
 }
